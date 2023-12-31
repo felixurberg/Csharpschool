@@ -2,6 +2,12 @@
 
 namespace Csharpschool.Models;
 
+
+
+/// <summary>
+/// Data model for concact information
+/// </summary>
+
 public class Contacts : IContacts
 
 {

@@ -7,6 +7,8 @@ using Csharpschool.Models.Responses;
 
 namespace Csharpschool.Services;
 
+
+
 public interface IMenuService
 {
     void ShowMainMenu();
@@ -16,7 +18,9 @@ public interface IMenuService
     void ShowDeleteContactsOption();
     void ShowUpdateContactsOption();
 
-}
+} 
+
+
 internal class MenuService : IMenuService
 {
 
@@ -78,7 +82,9 @@ internal class MenuService : IMenuService
     }
 
 
-    // gör dessa till private senare!
+    /// <summary>
+    /// Menu for Contacts
+    /// </summary>
 
     private void ShowAddContactsOption()
     {
