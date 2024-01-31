@@ -9,7 +9,7 @@ namespace Csharpschool.Services;
 
 public class ContactsService : IContactService
 {
-
+    private readonly FileService _fileService = new FileService(@"C:Csharpschool"); 
     private static readonly List<IContacts> _contacts = new List<IContacts>();
 
     
