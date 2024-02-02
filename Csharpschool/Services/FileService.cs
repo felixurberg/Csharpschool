@@ -1,54 +1,46 @@
-﻿using System;
+﻿using Csharpschool.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+
+
 
 namespace Csharpschool.Services;
 
-public interface IFileService
+
+
+public class FileService 
 {
+    private readonly string _filePath;
+
     
 
-    bool SaveContentToFile(string content);
-
-    string GetContentFromFile();
-}
-
-
-public class FileService(string filePath) : IFileService
-{
-    private readonly string _filePath = filePath;
-
-    public bool SaveContentToFile(string content)
+    public FileService(string filePath)
     {
-        try
-        {
-            
-
-            using (var sw = new StreamWriter(_filePath))
-            {
-                sw.WriteLine(content);
-            }
-            return true;
-        }
-        catch (Exception ex) { Debug.WriteLine(ex.Message); }
-        return false;
+        _filePath = filePath;
     }
 
-    public string GetContentFromFile()
-    {
-        try
-        {
-            if (File.Exists(_filePath))
-            {
-                File.ReadAllLines(_filePath);
-            }
 
+    public void SaveToJson(List<IContacts> contacts)
+    {
+        var json = JsonConvert.SerializeObject(contacts, Formatting.Indented);
+        File.WriteAllText(_filePath, json);
+    }
+    
+    public List<IContacts> LoadFromJson()
+    {
+        if (File.Exists(_filePath))
+        {
+            var json = File.ReadAllText(_filePath);
+            return JsonConvert.DeserializeObject<List<IContacts>>(json) ?? new List<IContacts>();
         }
-        catch (Exception ex) { Debug.WriteLine(ex.Message); }
-        return string.Empty;
+
+        return new List<IContacts>();
     }
 
      
